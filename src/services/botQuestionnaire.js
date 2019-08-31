@@ -1,12 +1,13 @@
-export const botQuestions = [
+export const botQuestionnaire = [
    {
       sender: 'bot',
       questionId: 'name',
-      questionText: 'What is your name?'
+      text: 'What is your name?'
    },
    {
       sender: 'bot',
       questionId: 'age',
-      questionText: 'What is your age?'
+      text: 'What is your age?'
    }
+   
 ];
