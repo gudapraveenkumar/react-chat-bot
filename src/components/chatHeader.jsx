@@ -1,10 +1,12 @@
 import React from 'react';
+import ChatIcon from '@material-ui/icons/Chat';
+
 
 const ChatHeader = () => {
     return ( 
-        <h3 style={{fontWeight: '500'}}>
-            Carla Bot
-        </h3>
+        <h2 style={{fontWeight: '500', textAlign: 'center'}}>
+           <ChatIcon style={{fontSize: '20px'}} /> Carla Chat Bot
+        </h2>
     );
 }
  

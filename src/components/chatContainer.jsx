@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Grid, CardHeader } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { Card } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import {botQuestionnaire} from '../services/botQuestionnaire';
+import {botQuestionnaire} from '../schema/botQuestionnaire';
 import ChatFooter from './chatFooter';
 import ChatBody from './chatBody';
 import ChatHeader from './chatHeader';
@@ -23,7 +23,7 @@ class ChatContainer extends Component {
    }
 
    insertMessage = (msgObj) =>{
-      let {conversation} = {...this.state};
+      const {conversation} = {...this.state};
       conversation.push(msgObj);
       this.setState({conversation});  
    }
@@ -39,12 +39,11 @@ class ChatContainer extends Component {
          let questionsFinished = {...this.state};
          questionsFinished = true;
          this.setState({questionsFinished});
-         return true;
       }
    }
 
    sendUserAnswer = (msgObj) =>{
-      let {currentQuestion} = {...this.state};
+      const {currentQuestion} = {...this.state};
       msgObj.questionId = currentQuestion.questionId;
       const userMessage = {...msgObj};
       this.insertMessage(userMessage);
@@ -56,26 +55,27 @@ class ChatContainer extends Component {
         
       return (
          <Grid 
-         style={{height:'100vh', background: '#efefef'}}
+         style={{height:'100vh', background: '#efefef', padding:'10px'}}
          container
          direction="row"
          justify="center"
          alignItems="center">
-            <Card>
-              
+            <Grid item xs={12} sm={9} md={5} >
+               <Card>
                   <ChatHeader/>
-              
+                  
+                  <CardContent>
+                     <ChatBody chat = {conversation}/>
+                  </CardContent>
 
-               <CardContent>
-                  <ChatBody chat = {conversation}/>
-               </CardContent>
-
-               <CardActions>
-                  <ChatFooter 
-                     hideInput = {questionsFinished}
-                     sendMessage = {this.sendUserAnswer}/>
-               </CardActions>
-            </Card>
+                  <CardActions>
+                     <ChatFooter 
+                        hideInput = {questionsFinished}
+                        sendMessage = {this.sendUserAnswer}/>
+                  </CardActions>
+               </Card>
+            </Grid>
+            
          </Grid>
        );
    }

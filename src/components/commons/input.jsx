@@ -1,13 +1,19 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
 
 const Input = ({...rest}) =>{
+
+    const inputStyle={
+        width: '100%',
+        padding: '12px',
+        borderRadius: '16px',
+        boxShadow: '0px 0px 3px 1px #c3c2c2',
+        border: '0px'
+    }
+
     return(
         <div>
-            <TextField
+            <input style={inputStyle}
                 {...rest}
-                margin="normal"
-                variant="outlined"
             />
         </div>
     )
