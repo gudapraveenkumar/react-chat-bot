@@ -6,7 +6,6 @@ const Input = ({...rest}) =>{
         <div>
             <TextField
                 {...rest}
-                 
                 margin="normal"
                 variant="outlined"
             />
