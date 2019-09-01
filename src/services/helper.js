@@ -7,6 +7,6 @@ export function getStyle(sender){
         maxWidth: '60%',
         textAlign: 'left',
         borderRadius: '15px',
-        background: sender === 'bot' ? '#3f51b5' : 'grey'
+        background: sender === 'bot' ?'grey':'#1f71bc '
     }
 }

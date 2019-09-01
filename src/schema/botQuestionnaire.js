@@ -16,8 +16,8 @@ export const botQuestionnaire = [
    },
    {
       sender: 'bot',
-      questionId: 'age',
-      text: 'What is your age?'
+      questionId: 'name',
+      text: 'What is your name?'
    },
    {
       sender: 'bot',
@@ -26,8 +26,8 @@ export const botQuestionnaire = [
    },
    {
       sender: 'bot',
-      questionId: 'age',
-      text: 'What is your age?'
+      questionId: 'name',
+      text: 'What is your name?'
    },
    {
       sender: 'bot',
@@ -36,8 +36,8 @@ export const botQuestionnaire = [
    },
    {
       sender: 'bot',
-      questionId: 'age',
-      text: 'What is your age?'
+      questionId: 'thank',
+      text: 'Thank you for the information, our colleague will get back to you in 2 working days'
    }
-   
+
 ];

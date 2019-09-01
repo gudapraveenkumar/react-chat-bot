@@ -4,8 +4,15 @@ import { Grid } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
 
-
 class ChatFooter extends Component {
+
+    constructor(props) {
+        super(props);
+        
+        this.handleChange = this.handleChange.bind(this);
+        this.keyPress = this.keyPress.bind(this);
+     } 
+
     state = { 
         messageData:{
             sender: 'user',
@@ -28,46 +35,56 @@ class ChatFooter extends Component {
     }
 
     handleSubmit = () =>{
-        if(this.state.messageData.text){
-            this.props.sendMessage(this.state.messageData);
-            this.resetInput();
-        }else{
+        if(!this.state.messageData.text)
             return;
-        }
-       
+        this.props.sendMessage(this.state.messageData);
+        this.resetInput();
     }
 
-    render() { 
-        let content;
-        if(!this.props.hideInput){
-            content = <Grid 
-            container
-            direction = "row"
-            justify = "center"
-            alignItems="center"
-            style={{padding: '10px'}}
-            spacing={3}>
-                <Grid item style={{flexGrow:'0.9'}}>
-                    <Input 
-                    type = "text"
-                    name = "message"
-                    placeholder = "Enter your message"
-                    onChange = {this.handleChange}
-                    value = {this.state.messageData.text}/>
-                </Grid>
-                <Grid item style={{flexGrow:"0.1", textAlign:'center'}}>
-                    <Fab size="small" onClick={this.handleSubmit} color="primary" aria-label="add">
-                        <SendIcon style={{fontSize: '20px'}} />
-                    </Fab>
-                </Grid>
-                
-            </Grid>
-        }else{
-            content = <div>Thank you for the information. We will get back to you in two working days.</div>
+    keyPress(e){
+        if(e.keyCode === 13){
+          this.handleSubmit();
         }
+     }
+
+    render() { 
+        console.log('props =', this.props.hideInput);
+       let footerContent;
+       if(!this.props.hideInput){
+        footerContent = <Grid 
+        container
+        direction = "row"
+        justify = "center"
+        alignItems="center"
+        style={{padding: '10px'}}
+        spacing={3}>
+
+            <Grid item style={{flexGrow:'0.9'}}>
+                <Input 
+                label = "Enter your message"
+                type = "text"
+                onChange = {this.handleChange}
+                onKeyDown = {this.keyPress}
+                value = {this.state.messageData.text}/>
+            </Grid>
+            
+            <Grid item style={{flexGrow:"0.1", textAlign:'center'}}>
+                <Fab size="small" onClick={this.handleSubmit} color="primary" aria-label="add">
+                    <SendIcon style={{fontSize: '20px'}} />
+                </Fab>
+            </Grid>
+        </Grid>
+       }else{
+           footerContent = <Grid style={{ background: '#efefef', padding: '12px', width: '100%'}}>
+                <div>
+                    This chat has been ended.
+                </div>  
+           </Grid> 
+       }
+
         return ( 
-          content
-        );
+            footerContent
+        )
     }
 }
  

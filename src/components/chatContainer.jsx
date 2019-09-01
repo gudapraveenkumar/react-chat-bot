@@ -8,7 +8,6 @@ import ChatFooter from './chatFooter';
 import ChatBody from './chatBody';
 import ChatHeader from './chatHeader';
 
-
 class ChatContainer extends Component {
    state = { 
       conversation:[],
@@ -26,20 +25,18 @@ class ChatContainer extends Component {
       const {conversation} = {...this.state};
       conversation.push(msgObj);
       this.setState({conversation});  
+      console.log('scrolled');
+      this.el.scrollIntoView({ behavior: 'smooth' });
    }
 
    sendBotQuestion = () =>{
-      let {questionsCount, currentQuestion} = {...this.state};
-      if(questionsCount < botQuestionnaire.length){
-         currentQuestion = botQuestionnaire[questionsCount];
-         this.insertMessage(currentQuestion);
-         questionsCount++;
-         this.setState({questionsCount, currentQuestion});
-      }else{
-         let questionsFinished = {...this.state};
+      let {questionsCount, questionsFinished, currentQuestion} = {...this.state};
+      currentQuestion = botQuestionnaire[questionsCount];
+      questionsCount++;
+      if(questionsCount === botQuestionnaire.length)
          questionsFinished = true;
-         this.setState({questionsFinished});
-      }
+      this.insertMessage(currentQuestion);
+      this.setState({questionsCount, questionsFinished, currentQuestion});
    }
 
    sendUserAnswer = (msgObj) =>{
@@ -55,17 +52,18 @@ class ChatContainer extends Component {
         
       return (
          <Grid 
-         style={{height:'100vh', background: '#efefef', padding:'10px'}}
+         style={{height:'100vh',padding:'10px'}}
          container
          direction="row"
          justify="center"
          alignItems="center">
+            
             <Grid item xs={12} sm={9} md={5} >
+            <ChatHeader/>
                <Card>
-                  <ChatHeader/>
-                  
-                  <CardContent>
+                  <CardContent style={{height: '50vh', overflow:'auto'}}>
                      <ChatBody chat = {conversation}/>
+                     <div ref={el => { this.el = el; }} />
                   </CardContent>
 
                   <CardActions>
