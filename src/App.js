@@ -6,6 +6,7 @@ import ChatContainer from './components/chatContainer';
 function App() {
   return (
     <div className="App">
+      
       <Switch>
         <Route path="/" component={ChatContainer}/>
         <Route path="/chat" component={ChatContainer}/>

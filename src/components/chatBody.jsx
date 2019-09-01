@@ -1,19 +1,20 @@
 import React from 'react';
+import Message from './commons/message';
 
 const ChatBody = (props) =>{
-   
+  
     return(
-        <div style={{height: '45vh', overflow:'auto'}}>
+        <div>
             {
                 props.chat.map((obj, index) =>{
                     return(
-                        <div key={index}>{obj.text}</div>
+                        <div key={index}>
+                            <Message data = {obj} />
+                        </div>
                     )
                 })
             }
         </div>
-        
-        
     )
 }
 

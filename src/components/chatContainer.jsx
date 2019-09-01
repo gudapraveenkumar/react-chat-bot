@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Grid, CardHeader } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { Card } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import {botQuestionnaire} from '../services/botQuestionnaire';
+import {botQuestionnaire} from '../schema/botQuestionnaire';
 import ChatFooter from './chatFooter';
 import ChatBody from './chatBody';
 import ChatHeader from './chatHeader';
-
 
 class ChatContainer extends Component {
    state = { 
@@ -23,28 +22,25 @@ class ChatContainer extends Component {
    }
 
    insertMessage = (msgObj) =>{
-      let {conversation} = {...this.state};
+      const {conversation} = {...this.state};
       conversation.push(msgObj);
       this.setState({conversation});  
+      console.log('scrolled');
+      this.el.scrollIntoView({ behavior: 'smooth' });
    }
 
    sendBotQuestion = () =>{
-      let {questionsCount, currentQuestion} = {...this.state};
-      if(questionsCount < botQuestionnaire.length){
-         currentQuestion = botQuestionnaire[questionsCount];
-         this.insertMessage(currentQuestion);
-         questionsCount++;
-         this.setState({questionsCount, currentQuestion});
-      }else{
-         let questionsFinished = {...this.state};
+      let {questionsCount, questionsFinished, currentQuestion} = {...this.state};
+      currentQuestion = botQuestionnaire[questionsCount];
+      questionsCount++;
+      if(questionsCount === botQuestionnaire.length)
          questionsFinished = true;
-         this.setState({questionsFinished});
-         return true;
-      }
+      this.insertMessage(currentQuestion);
+      this.setState({questionsCount, questionsFinished, currentQuestion});
    }
 
    sendUserAnswer = (msgObj) =>{
-      let {currentQuestion} = {...this.state};
+      const {currentQuestion} = {...this.state};
       msgObj.questionId = currentQuestion.questionId;
       const userMessage = {...msgObj};
       this.insertMessage(userMessage);
@@ -56,26 +52,28 @@ class ChatContainer extends Component {
         
       return (
          <Grid 
-         style={{height:'100vh', background: '#efefef'}}
+         style={{height:'100vh',padding:'10px'}}
          container
          direction="row"
          justify="center"
          alignItems="center">
-            <Card>
-              
-                  <ChatHeader/>
-              
+            
+            <Grid item xs={12} sm={9} md={5} >
+            <ChatHeader/>
+               <Card>
+                  <CardContent style={{height: '50vh', overflow:'auto'}}>
+                     <ChatBody chat = {conversation}/>
+                     <div ref={el => { this.el = el; }} />
+                  </CardContent>
 
-               <CardContent>
-                  <ChatBody chat = {conversation}/>
-               </CardContent>
-
-               <CardActions>
-                  <ChatFooter 
-                     hideInput = {questionsFinished}
-                     sendMessage = {this.sendUserAnswer}/>
-               </CardActions>
-            </Card>
+                  <CardActions>
+                     <ChatFooter 
+                        hideInput = {questionsFinished}
+                        sendMessage = {this.sendUserAnswer}/>
+                  </CardActions>
+               </Card>
+            </Grid>
+            
          </Grid>
        );
    }
