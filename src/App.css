@@ -1,9 +1,4 @@
 .App {
   min-height: 100vh;
   background: linear-gradient(to right,  #1e5799 0%,#207cca 62%,#7db9e8 100%);
-
-}
-
-input:focus{
-  outline: none;
 }

@@ -7,32 +7,17 @@ export const botQuestionnaire = [
    {
       sender: 'bot',
       questionId: 'age',
-      text: 'What is your age?'
+      text: 'How old are you?'
    },
    {
       sender: 'bot',
       questionId: 'name',
-      text: 'What is your name?'
+      text: 'Where do you live?'
    },
    {
       sender: 'bot',
       questionId: 'name',
-      text: 'What is your name?'
-   },
-   {
-      sender: 'bot',
-      questionId: 'name',
-      text: 'What is your name?'
-   },
-   {
-      sender: 'bot',
-      questionId: 'name',
-      text: 'What is your name?'
-   },
-   {
-      sender: 'bot',
-      questionId: 'name',
-      text: 'What is your name?'
+      text: 'Please provide contact info (Mobile or Email)?'
    },
    {
       sender: 'bot',
