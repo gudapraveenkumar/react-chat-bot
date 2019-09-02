@@ -3,79 +3,95 @@ import { Grid } from '@material-ui/core';
 import { Card } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import {botQuestionnaire} from '../schema/botQuestionnaire';
+import { botQuestionnaire } from '../schema/botQuestionnaire';
 import ChatFooter from './chatFooter';
 import ChatBody from './chatBody';
 import ChatHeader from './chatHeader';
+import '../App.css';
 
 class ChatContainer extends Component {
-   state = { 
-      conversation:[],
-      questionsCount : 0,
+   state = {
+      conversation: [],
+      questionsCount: 0,
       currentQuestion: {},
-      botTyping: true,
       questionsFinished: false
    }
 
-   componentDidMount = () =>{
-      this.sendBotQuestion();
+   componentDidMount = () => {
+      this.postBotMessage();
    }
 
-   insertMessage = (msgObj) =>{
-      const {conversation} = {...this.state};
-      conversation.push(msgObj);
-      this.setState({conversation});  
-      console.log('scrolled');
+   isQuestionsFinished = () => {
+      let { questionsCount } = { ...this.state };
+      return questionsCount === botQuestionnaire.length;
+   }
+
+   scrollToLatestMsg = () => {
       this.el.scrollIntoView({ behavior: 'smooth' });
    }
 
-   sendBotQuestion = () =>{
-      let {questionsCount, questionsFinished, currentQuestion} = {...this.state};
-      currentQuestion = botQuestionnaire[questionsCount];
-      questionsCount++;
-      if(questionsCount === botQuestionnaire.length)
-         questionsFinished = true;
-      this.insertMessage(currentQuestion);
-      this.setState({questionsCount, questionsFinished, currentQuestion});
+   componentDidUpdate = () => {
+      this.scrollToLatestMsg();
    }
 
-   sendUserAnswer = (msgObj) =>{
-      const {currentQuestion} = {...this.state};
+   /**
+    * Push a message into the conversation
+    */
+   insertMessage = (msgObj) => {
+      const { conversation } = { ...this.state };
+      conversation.push(msgObj);
+      this.setState({ conversation });
+   }
+
+   /**
+    * Function for Bot asking predefined questions to the User in the form of message
+    */
+   postBotMessage = () => {
+      let { questionsCount, currentQuestion } = { ...this.state };
+      currentQuestion = botQuestionnaire[questionsCount];
+      questionsCount++;
+      this.insertMessage(currentQuestion);
+      this.setState({ questionsCount, currentQuestion });
+   }
+
+   /**
+    * Function for User to answer the question in the form of message
+    */
+   postUserMessage = (msgObj) => {
+      const { currentQuestion } = { ...this.state };
       msgObj.questionId = currentQuestion.questionId;
-      const userMessage = {...msgObj};
-      this.insertMessage(userMessage);
-      this.sendBotQuestion();
+      this.insertMessage(msgObj);
+      this.postBotMessage();
    }
 
    render() {
-      const {conversation, questionsFinished} = this.state;
-        
+      const { conversation } = this.state;
+
       return (
-         <Grid 
-         style={{height:'100vh',padding:'10px'}}
-         container
-         direction="row"
-         justify="center"
-         alignItems="center">
-            
+         <Grid className="chat-container"
+            container
+            direction="row"
+            justify="center"
+            alignItems="center">
+
             <Grid item xs={12} sm={9} md={5} >
-            <ChatHeader/>
+               <ChatHeader />
                <Card>
-                  <CardContent style={{height: '50vh', overflow:'auto'}}>
-                     <ChatBody chat = {conversation}/>
+
+                  <CardContent className="chat-body">
+                     <ChatBody chat={conversation} />
                      <div ref={el => { this.el = el; }} />
                   </CardContent>
 
                   <CardActions>
-                     <ChatFooter 
-                        hideInput = {questionsFinished}
-                        sendMessage = {this.sendUserAnswer}/>
+                     <ChatFooter
+                        hideInput={this.isQuestionsFinished()}
+                        sendMessage={this.postUserMessage} />
                   </CardActions>
                </Card>
             </Grid>
-            
          </Grid>
-       );
+      );
    }
 }
 
