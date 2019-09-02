@@ -4,7 +4,8 @@ Demo [https://react-chat-bot-web.herokuapp.com/](https://react-chat-bot-web.hero
 
  ## Getting Started
 Clone the project and cd into the project<br>
-run npm install
+To install all the dependencies run:
+## `npm install`
 
 ## Available Scripts
 
