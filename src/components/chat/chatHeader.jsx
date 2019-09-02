@@ -1,7 +1,7 @@
 import React from 'react';
 import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
 import { Grid } from '@material-ui/core';
-import '../App.css';
+import './chat.css';
 
 const ChatHeader = () => {
 

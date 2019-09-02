@@ -3,11 +3,11 @@ import { Grid } from '@material-ui/core';
 import { Card } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import { botQuestionnaire } from '../schema/botQuestionnaire';
+import { botQuestionnaire } from '../../schema/botQuestionnaire';
 import ChatFooter from './chatFooter';
 import ChatBody from './chatBody';
 import ChatHeader from './chatHeader';
-import '../App.css';
+import './chat.css';
 
 class ChatContainer extends Component {
    state = {

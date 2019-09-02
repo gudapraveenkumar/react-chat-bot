@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import ChatContainer from './components/chatContainer';
+import ChatContainer from './components/chat/chatContainer';
 
 function App() {
   return (

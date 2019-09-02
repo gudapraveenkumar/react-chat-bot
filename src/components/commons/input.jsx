@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../App.css';
+import './commons.css';
 
 const Input = ({ label, type, ...rest }) => {
 

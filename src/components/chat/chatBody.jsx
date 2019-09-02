@@ -1,5 +1,5 @@
 import React from 'react';
-import Message from './commons/message';
+import Message from '../commons/message';
 
 const ChatBody = (props) => {
 

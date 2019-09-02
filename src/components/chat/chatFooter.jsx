@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Input from './commons/input';
+import Input from '../commons/input';
 import { Grid } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
-import '../App.css';
 
 class ChatFooter extends Component {
 
