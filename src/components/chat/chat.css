@@ -29,7 +29,8 @@
 }
 
 .chat-input-container{
-  flex-grow: 0.9
+  flex-grow: 0.9;
+  margin: 5px;
 }
 
 
@@ -46,4 +47,8 @@
   background: #efefef;
   padding: 12px;
   width: 100%;
+}
+
+.chat-footer{
+  padding: 15px;
 }

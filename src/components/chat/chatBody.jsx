@@ -6,9 +6,9 @@ const ChatBody = (props) => {
     return (
         <div>
             {
-                props.chat.map((obj) => {
+                props.chat.map((obj, index) => {
                     return (
-                        <div key={obj}>
+                        <div key={index}>
                             <Message data={obj} />
                         </div>
                     )

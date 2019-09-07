@@ -22,8 +22,7 @@ class ChatContainer extends Component {
    }
 
    isQuestionsFinished = () => {
-      let { questionsCount } = { ...this.state };
-      return questionsCount === botQuestionnaire.length;
+      return this.state.questionsCount === botQuestionnaire.length;
    }
 
    scrollToLatestMsg = () => {
@@ -34,10 +33,7 @@ class ChatContainer extends Component {
       this.scrollToLatestMsg();
    }
 
-   /**
-    * Push a message into the conversation
-    */
-   insertMessage = (msgObj) => {
+   addMessage = (msgObj) => {
       const { conversation } = { ...this.state };
       conversation.push(msgObj);
       this.setState({ conversation });
@@ -50,7 +46,7 @@ class ChatContainer extends Component {
       let { questionsCount, currentQuestion } = { ...this.state };
       currentQuestion = botQuestionnaire[questionsCount];
       questionsCount++;
-      this.insertMessage(currentQuestion);
+      this.addMessage(currentQuestion);
       this.setState({ questionsCount, currentQuestion });
    }
 
@@ -59,8 +55,9 @@ class ChatContainer extends Component {
     */
    postUserMessage = (msgObj) => {
       const { currentQuestion } = { ...this.state };
-      msgObj.questionId = currentQuestion.questionId;
-      this.insertMessage(msgObj);
+      msgObj['questionId'] = currentQuestion.questionId;
+      msgObj['sender'] = 'user';
+      this.addMessage(msgObj);
       this.postBotMessage();
    }
 
@@ -80,12 +77,13 @@ class ChatContainer extends Component {
 
                   <CardContent className="chat-body">
                      <ChatBody chat={conversation} />
+                     {/* Element at the bottom */}
                      <div ref={el => { this.el = el; }} />
                   </CardContent>
 
                   <CardActions>
                      <ChatFooter
-                        hideInput={this.isQuestionsFinished()}
+                        chatbotIsFinished={this.isQuestionsFinished()}
                         sendMessage={this.postUserMessage} />
                   </CardActions>
                </Card>
