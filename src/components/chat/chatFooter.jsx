@@ -3,6 +3,7 @@ import Input from '../commons/input';
 import { Grid } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
+import './chat.css';
 
 class ChatFooter extends Component {
 
@@ -14,8 +15,7 @@ class ChatFooter extends Component {
 
     state = {
         messageData: {
-            text: '',
-            questionId: ''
+            text: ''
         }
     }
 
@@ -42,7 +42,7 @@ class ChatFooter extends Component {
         if (!this.state.messageData.text)
             return;
         const data = { ...this.state.messageData };
-        this.props.sendMessage({ ...data, sender: 'user' });
+        this.props.sendMessage(data);
         this.resetInput();
     }
 
@@ -58,12 +58,11 @@ class ChatFooter extends Component {
     render() {
         return (
             <React.Fragment>
-                {!this.props.hideInput && <Grid
+                {!this.props.chatbotIsFinished && <Grid
                     container
                     direction="row"
                     justify="center"
                     alignItems="center"
-                    style={{ padding: '10px' }}
                     spacing={3}>
 
                     <Grid item className="chat-input-container">
@@ -83,7 +82,7 @@ class ChatFooter extends Component {
 
                 </Grid>}
 
-                {this.props.hideInput && <Grid className="chat-end-info">
+                {this.props.chatbotIsFinished && <Grid className="chat-end-info">
                     <div>
                         This chat has been ended.
                     </div>
