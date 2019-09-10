@@ -12,7 +12,7 @@ const ChatHeader = () => {
             justify="center"
             alignItems="center">
             <PersonOutlinedIcon className="header-icon" />
-            <div className='header-text'>Carla Chat Bot</div>
+            <div className='header-text'>Chat Bot</div>
         </Grid>
 
     );
